@@ -11,6 +11,23 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
 
 ## TODOs
 - [ ] Complete the project MVP as assigned in the bootcamp, including all required tests.
+    - [ ] Stage 1
+        - [ ] Step 1
+        - [ ] Step 2
+    - [ ] Stage 2
+        - [ ] Step 1
+        - [ ] Step 2
+    - [ ] Stage 3
+        - [ ] Step 1
+        - [ ] Step 2
+        - [ ] Step 3
+        - [ ] Build and test MVP
+- [ ] Refactor code to improve modularity and readability.
+- [ ] Implement proper error handling throughout the application.
+- [ ] Add logging for better traceability and debugging.
+- [ ] Set up database migrations for easier schema management.
+- [ ] Add input validation for all endpoints.
+- [ ] Implement rate limiting to prevent abuse.
 - [ ] Bring all HTTP response codes into alignment with RESTful API best practices: https://www.rfc-editor.org/rfc/rfc9110#name-delete
 - [ ] Add pagination to GET endpoints.
 - [ ] Add authentication and authorization.
@@ -19,6 +36,7 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
 - [ ] Create a way to request sorted results (e.g., by date created, by popularity).
 - [ ] Make this a full website with a frontend.
 - [ ] Acheive >90% test coverage across the entire codebase.
+- [ ] Ensure the project meets the guidelines in [`std_new`](https://github.com/JonathanMcCormickJr/std_new).
 - [ ] Deploy the application to a cloud service
 - [ ] Pentest the deployed application for security vulnerabilities.
 - [ ] Optimize performance for high traffic scenarios.
