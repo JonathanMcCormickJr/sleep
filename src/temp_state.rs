@@ -33,4 +33,23 @@ impl TempState {
             .remove(&Uuid::parse_str(question_uuid).unwrap());
         uuid
     }
+
+    pub fn add_answer(&mut self, answer: crate::models::AnswerDetail) {
+        let question_uuid = Uuid::parse_str(&answer.question_uuid).unwrap();
+        self.answers
+            .entry(question_uuid)
+            .or_insert_with(Vec::new)
+            .push(answer);
+    }
+
+    pub fn get_answers(&self, question_uuid: &str) -> Option<Vec<crate::models::AnswerDetail>> {
+        let uuid = Uuid::parse_str(question_uuid).unwrap();
+        self.answers.get(&uuid).cloned()
+    }
+
+    pub fn delete_answer(&mut self, answer_uuid: &str) -> Uuid {
+        let uuid = Uuid::parse_str(answer_uuid).unwrap();
+        self.answers.remove(&uuid);
+        uuid
+    }
 }
