@@ -24,6 +24,7 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
         - [ ] Check for unresolved TODOs in codebase.
         - [ ] Build and test MVP
 - [ ] Audit and updates all dependencies to their latest stable versions.
+- [ ] Change all UUIDs to type `uuid::Uuid` instead of `String`.
 - [ ] Refactor code to improve modularity and readability.
 - [ ] Implement proper error handling throughout the application.
 - [ ] Add logging for better traceability and debugging.
