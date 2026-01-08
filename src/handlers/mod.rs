@@ -1,13 +1,23 @@
 use std::sync::{Arc, Mutex};
 
 use crate::models::*;
-use axum::{extract, response::IntoResponse, Json};
+use crate::temp_state::TempState;
+use axum::{
+    extract::Extension,
+    response::IntoResponse,
+    Json,
+};
 use chrono::Utc;
 use uuid::Uuid;
 
+type AppState = Arc<Mutex<TempState>>;
+
 // ---- CRUD for Questions ----
 
-pub async fn create_question(Json(question): Json<Question>, state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> impl IntoResponse {
+pub async fn create_question(
+    Extension(state): Extension<AppState>,
+    Json(question): Json<Question>,
+) -> impl IntoResponse {
     let question_detail = QuestionDetail {
         question_uuid: Uuid::new_v4().to_string(),
         title: question.title,
@@ -18,18 +28,31 @@ pub async fn create_question(Json(question): Json<Question>, state: extract::Ext
     Json(question_detail)
 }
 
-pub async fn read_questions(state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> impl IntoResponse {
+pub async fn read_questions(
+    Extension(state): Extension<AppState>,
+) -> impl IntoResponse {
     Json(state.lock().unwrap().get_questions().clone())
 }
 
-pub async fn delete_question(Json(question_uuid): Json<QuestionId>, state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> Json<QuestionId> {
-    let uuid = state.lock().unwrap().delete_question(&question_uuid.question_uuid);
-    Json(QuestionId { question_uuid: uuid.to_string() })
+pub async fn delete_question(
+    Extension(state): Extension<AppState>,
+    Json(question_uuid): Json<QuestionId>,
+) -> Json<QuestionId> {
+    let uuid = state
+        .lock()
+        .unwrap()
+        .delete_question(&question_uuid.question_uuid);
+    Json(QuestionId {
+        question_uuid: uuid.to_string(),
+    })
 }
 
 // ---- CRUD for Answers ----
 
-pub async fn create_answer(Json(answer): Json<Answer>, state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> impl IntoResponse {
+pub async fn create_answer(
+    Extension(state): Extension<AppState>,
+    Json(answer): Json<Answer>,
+) -> impl IntoResponse {
     let answer_detail = AnswerDetail {
         answer_uuid: Uuid::new_v4().to_string(),
         question_uuid: answer.question_uuid,
@@ -40,19 +63,24 @@ pub async fn create_answer(Json(answer): Json<Answer>, state: extract::Extension
     Json(answer_detail)
 }
 
-pub async fn read_answers(extract::Json(question_id): extract::Json<QuestionId>, state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> impl IntoResponse {
-    let answers = state.lock().unwrap().get_answers(&question_id.question_uuid);
+pub async fn read_answers(
+    Extension(state): Extension<AppState>,
+    Json(question_id): Json<QuestionId>,
+) -> impl IntoResponse {
+    let answers = state
+        .lock()
+        .unwrap()
+        .get_answers(&question_id.question_uuid);
     match answers {
         Some(ans) => Json(ans.clone()),
         None => Json(Vec::new()),
     }
 }
 
-// TODO: Create a DELETE route to /answer which accepts an `AnswerId` and does not return anything.
-//       The handler function should be called `delete_answer`.
-//
-//       hint: this function should look very similar to the delete_question function above
-pub async fn delete_answer(extract::Json(answer_id): extract::Json<AnswerId>, state: extract::Extension<Arc<Mutex<crate::temp_state::TempState>>>) -> () {
-    let uuid = state.lock().unwrap().delete_answer(&answer_id.answer_uuid);
+pub async fn delete_answer(
+    Extension(state): Extension<AppState>,
+    Json(answer_id): Json<AnswerId>,
+) -> () {
+    let _uuid = state.lock().unwrap().delete_answer(&answer_id.answer_uuid);
     //Json(AnswerId { answer_uuid: uuid.to_string() })
 }

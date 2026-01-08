@@ -26,8 +26,7 @@ impl TempState {
     }
 
     pub fn delete_question(&mut self, question_uuid: &str) -> Uuid {
-        self.questions
-            .retain(|q| q.question_uuid != question_uuid);
+        self.questions.retain(|q| q.question_uuid != question_uuid);
         let uuid = Uuid::parse_str(question_uuid).unwrap();
         self.answers
             .remove(&Uuid::parse_str(question_uuid).unwrap());
@@ -49,7 +48,9 @@ impl TempState {
 
     pub fn delete_answer(&mut self, answer_uuid: &str) -> Uuid {
         let uuid = Uuid::parse_str(answer_uuid).unwrap();
-        self.answers.remove(&uuid);
+        self.answers.values_mut().for_each(|answers| {
+            answers.retain(|a| a.answer_uuid != answer_uuid);
+        });
         uuid
     }
 }

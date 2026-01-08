@@ -1,8 +1,9 @@
-use std::net::SocketAddr;
+use std::sync::{Arc, Mutex};
 
 use axum::{
-    routing::{delete, get, post},
     Router,
+    extract::Extension,
+    routing::{delete, get, post},
 };
 
 mod handlers;
@@ -14,14 +15,15 @@ use temp_state::TempState;
 
 #[tokio::main]
 async fn main() {
-    let mut state  = TempState::new(); // TODO: replace with persistent storage later
+    let state = Arc::new(Mutex::new(TempState::new())); // TODO: replace with persistent storage later
     let app = Router::new()
         .route("/question", post(create_question))
         .route("/questions", get(read_questions))
         .route("/question", delete(delete_question))
         .route("/answer", post(create_answer))
         .route("/answers", get(read_answers))
-        .route("/answer", delete(delete_answer));
+        .route("/answer", delete(delete_answer))
+        .layer(Extension(state));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8000")
         .await
