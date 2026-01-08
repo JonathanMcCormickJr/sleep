@@ -11,9 +11,9 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
 
 ## TODOs
 - [ ] Complete the project MVP as assigned in the bootcamp, including all required tests.
-    - [ ] Stage 1
-        - [ ] Step 1
-        - [ ] Step 2
+    - [x] Stage 1
+        - [x] Step 1
+        - [x] Step 2
     - [ ] Stage 2
         - [ ] Step 1
         - [ ] Step 2
