@@ -1,4 +1,7 @@
-// TODO: import log, pretty_env_logger, dotenv, and PgPoolOptions
+use log::log;
+use dotenvy::dotenv;
+use pretty_env_logger;
+use sqlx::postgres::PgPoolOptions;
 
 use axum::{
     routing::{delete, get, post},
@@ -12,23 +15,25 @@ use handlers::*;
 
 #[tokio::main]
 async fn main() {
-    // TODO: Initialize pretty_env_logger
-    // TODO: Initialize dotenv
+    pretty_env_logger::init();
+    let env = dotenv().ok();
+    log::info!("Environment variables loaded: {:?}", env.is_some());
 
-    // Create a new PgPoolOptions instance with a maximum of 5 connections.
-    // Use dotenv to get the database url.
-    // Use the `unwrap` or `expect` method instead of handling errors. If an
-    // error occurs at this stage the server should be terminated.
-    // See examples on GitHub page: https://github.com/launchbadge/sqlx
-    // let pool = todo!();
+    let database_url =
+        std::env::var("DATABASE_URL").expect("DATABASE_URL must be set in .env or environment");
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .expect("Failed to create Postgres connection pool");
 
-    // Using slqx, execute a SQL query that selects all questions from the questions table.
-    // Use the `unwrap` or `expect` method to handle errors. This is just some test code to
-    // make sure we can connect to the database.
-    // let recs = todo!();
+    let recs = sqlx::query_as::<_, models::QuestionDetail>("SELECT question_uuid, title, description, created_at FROM questions")
+        .fetch_all(&pool)
+        .await
+        .expect("Failed to fetch questions from database");
 
-    info!("********* Question Records *********");
-    // TODO: Log recs with debug formatting using the info! macro
+    log::info!("********* Question Records *********");
+    log::info!("{:?}", recs);
 
     let app = Router::new()
         .route("/question", post(create_question))
