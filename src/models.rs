@@ -6,7 +6,6 @@ pub struct Question {
     pub description: String,
 }
 
-/// The base structure representing a detailed view of a question.
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct QuestionDetail {
     pub question_uuid: String,
@@ -15,19 +14,20 @@ pub struct QuestionDetail {
     pub created_at: String,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct QuestionId {
     pub question_uuid: String,
 }
 
-#[derive(Deserialize, Serialize)]
+// ----------
+
+#[derive(Serialize, Deserialize)]
 pub struct Answer {
     pub question_uuid: String,
     pub content: String,
 }
 
-/// The base structure representing a detailed view of an answer.
-#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct AnswerDetail {
     pub answer_uuid: String,
     pub question_uuid: String,
@@ -35,7 +35,7 @@ pub struct AnswerDetail {
     pub created_at: String,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct AnswerId {
     pub answer_uuid: String,
 }
