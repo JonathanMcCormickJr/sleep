@@ -1,39 +1,43 @@
-use log::log;
-use dotenvy::dotenv;
-use pretty_env_logger;
-use sqlx::postgres::PgPoolOptions;
+#[macro_use]
+extern crate log;
+
+extern crate pretty_env_logger;
 
 use axum::{
     routing::{delete, get, post},
     Router,
 };
 
+use dotenvy::dotenv;
+
+use sqlx::postgres::PgPoolOptions;
+
 mod handlers;
 mod models;
+mod persistance;
 
 use handlers::*;
 
 #[tokio::main]
 async fn main() {
     pretty_env_logger::init();
-    let env = dotenv().ok();
-    log::info!("Environment variables loaded: {:?}", env.is_some());
+    dotenv().ok();
 
-    let database_url =
-        std::env::var("DATABASE_URL").expect("DATABASE_URL must be set in .env or environment");
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect(&database_url)
+        .connect(&std::env::var("DATABASE_URL").expect("DATABASE_URL must be set."))
         .await
-        .expect("Failed to create Postgres connection pool");
+        .expect("Failed to create Postgres connection pool!");
 
-    let recs = sqlx::query_as::<_, models::QuestionDetail>("SELECT question_uuid, title, description, created_at FROM questions")
+    // TODO: Delete this query
+    let recs = sqlx::query!("SELECT * FROM questions")
         .fetch_all(&pool)
         .await
-        .expect("Failed to fetch questions from database");
+        .unwrap();
 
-    log::info!("********* Question Records *********");
-    log::info!("{:?}", recs);
+    // TODO: Delete these log statements
+    info!("********* Question Records *********");
+    info!("{:?}", recs);
 
     let app = Router::new()
         .route("/question", post(create_question))
