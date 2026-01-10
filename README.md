@@ -14,9 +14,9 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
     - [x] Stage 1
         - [x] Step 1
         - [x] Step 2
-    - [ ] Stage 2
+    - [x] Stage 2
         - [x] Step 1
-        - [ ] Step 2
+        - [x] Step 2
     - [ ] Stage 3
         - [ ] Step 1
         - [ ] Step 2
