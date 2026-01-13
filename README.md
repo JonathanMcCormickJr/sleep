@@ -25,7 +25,7 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
         - [ ] Build and test MVP
 - [ ] Audit and updates all dependencies to their latest stable versions.
 - [ ] Change all UUIDs to type `uuid::Uuid` instead of `String`.
-- [ ] Refactor code to improve modularity and readability.
+- [ ] Refactor code to improve modularity and readability. Determine whether functions need to have `State(AppState...` passed in or if passing in the relevant DAO trait object is sufficient.
 - [ ] Implement proper error handling throughout the application.
 - [ ] Add logging for better traceability and debugging.
 - [ ] Set up database migrations for easier schema management.
