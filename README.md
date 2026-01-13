@@ -18,7 +18,7 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
         - [x] Step 1
         - [x] Step 2
     - [ ] Stage 3
-        - [ ] Step 1
+        - [x] Step 1
         - [ ] Step 2
         - [ ] Step 3
         - [ ] Check for unresolved TODOs in codebase.
