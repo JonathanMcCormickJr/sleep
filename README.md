@@ -10,19 +10,19 @@ Developed by Jonathan McCormick, Jr and LGR (as applicable) within the structure
 
 
 ## TODOs
-- [ ] Complete the project MVP as assigned in the bootcamp, including all required tests.
+- [x] Complete the project MVP as assigned in the bootcamp, including all required tests.
     - [x] Stage 1
         - [x] Step 1
         - [x] Step 2
     - [x] Stage 2
         - [x] Step 1
         - [x] Step 2
-    - [ ] Stage 3
+    - [x] Stage 3
         - [x] Step 1
         - [x] Step 2
-        - [ ] Step 3
-        - [ ] Check for unresolved TODOs in codebase.
-        - [ ] Build and test MVP
+        - [x] Step 3
+        - [x] Check for unresolved TODOs in codebase.
+        - [x] Build and test MVP
 - [ ] Audit and updates all dependencies to their latest stable versions.
 - [ ] Change all UUIDs to type `uuid::Uuid` instead of `String`.
 - [ ] Refactor code to improve modularity and readability. Determine whether functions need to have `State(AppState...` passed in or if passing in the relevant DAO trait object is sufficient.
