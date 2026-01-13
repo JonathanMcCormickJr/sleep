@@ -72,3 +72,59 @@ curl --request DELETE \
 }' \
   --header 'Content-Type: application/json'
 ```
+
+
+## MVP commands history
+
+```bash
+jonathan@jonathan-computer:~$ curl --location 'localhost:8000/question' \ 
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "Newly Created Question",
+    "description": "My Description"
+}'
+{"question_uuid":"a12aed05-b6eb-424f-93f9-2d631e7b29b0","title":"Newly Created Question","description":"My Description","created_at":"2026-01-13 12:27:25.828694"}jonathan@jonathan-computer:~$jonathan@jonathan-computer:~$ curl --location 'localhost:8000/questions'
+[{"question_uuid":"a12aed05-b6eb-424f-93f9-2d631e7b29b0","title":"Newly Created Question","description":"My Description","created_atjonathan@jonathan-computer:~$ curl --location --request DELETE 'localhost:8000/question' \LETE 'localhost:8000/question' \
+--header 'Content-Type: application/json' \
+--data '{ 
+    "question_uuid": "[UUID of a created question]"
+}'
+Something went wrong! Please try again.jonathan@jonathan-ThinkCentjonathan@jonathan-computer:~$ curl --location --request DELETE 'localhost:8000/question' \
+--header 'Content-Type: application/json' \
+--data '{ 
+    "question_uuid": "a12aed05-b6eb-424f-93f9-2d631e7b29b0"
+}'
+jonathan@jonathan-computer:~$ curl --location 'localhost:8000/questions'
+jonathan@jonathan-computer:~$ curl --location 'localhost:8000/question' --header 'Content-Type: application/json' --data '{
+    "title": "Newly Created Question",
+    "description": "My Description"
+}'
+{"question_uuid":"38fdb272-f068-4141-8d26-fe9d47850c26","title":"Newly Created Question","description":"My Description","created_at"jonathan@jonathan-computer:~$ curl --location 'localhost:8000/answer' \tion 'localhost:8000/answer' \
+--header 'Content-Type: application/json' \
+--data '{ 
+    "question_uuid": "38fdb272-f068-4141-8d26-fe9d47850c26",
+    "content": "test question"
+}'
+{"answer_uuid":"f9493d58-83d3-4263-990d-0716b94df28a","question_uuid":"38fdb272-f068-4141-8d26-fe9d47850c26","content":"test question","created_at":"2026-01-13 12:29:28.542716"}jonathan@jonathan-Thijonathan@jonathan-computer:~$ curl --location --request GET 'localhost:8000/answers' \
+--header 'Content-Type: application/json' \
+--data '{
+    "question_uuid": "curl --location --request GET 'localhost:8000/answers' \
+--header 'Content-Type: application/json' \
+--data '{
+    "question_uu^C  
+}'
+jonathan@jonathan-computer:~$ curl --location --request GET 'localhost:8000/answers' \
+--header 'Content-Type: application/json' \
+--data '{
+    "question_uuid": "38fdb272-f068-4141-8d26-fe9d47850c26"
+}'
+[{"answer_uuid":"f9493d58-83d3-4263-990d-0716b94df28a","question_uuid":"38fdb272-f068-4141-8d26-fe9d47850c26","content":"test question","created_at":"2026-01-13 12:29:28.542716"}]jonathan@jonathan-Tjonathan@jonathan-computer:~$ curl --location --request DELETE 'localhost:8000/answer' \
+--header 'Content-Type: application/json' \
+--data '{ 
+    "answer_uuid": "f9493d58-83d3-4263-990d-0716b94df28a"
+}'
+jonathan@jonathan-computer:~$ curl --location --request GET 'localhost:8000/answers' --header 'Content-Type: application/json' --data '{
+    "question_uuid": "38fdb272-f068-4141-8d26-fe9d47850c26"
+}'
+[]jonathan@jonathan-computer:~$ 
+```
