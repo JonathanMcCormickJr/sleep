@@ -128,3 +128,17 @@ jonathan@jonathan-computer:~$ curl --location --request GET 'localhost:8000/answ
 }'
 []jonathan@jonathan-computer:~$ 
 ```
+
+## For DB testing 
+
+```bash 
+# Stop it if it’s still running
+docker stop stack-overflow-db
+
+# Then remove it
+docker rm stack-overflow-db
+```
+
+```bash
+sudo docker run --name stack-overflow-db -e POSTGRES_PASSWORD=postgrespw -p 55008:5432 -d postgres
+```
